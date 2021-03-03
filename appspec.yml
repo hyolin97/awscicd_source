@@ -6,8 +6,9 @@ files:
 hooks:
 
   BeforeInstall:
-    - location: executedeploy.sh
+    - location: script/executedeploy.sh
 
   AfterInstall:
-    - location: code.sh
-    - location: start.sh
+    - location: script/code.sh
+    - location: script/start.sh
+
