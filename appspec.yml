@@ -1,0 +1,13 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ec2-user/apache-tomcat-8.5.38/webapps/spring4basic
+hooks:
+
+  BeforeInstall:
+    - location: executedeploy.sh
+
+  AfterInstall:
+    - location: code.sh
+    - location: start.sh

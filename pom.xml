@@ -313,7 +313,8 @@
   
   <build>
 	<defaultGoal>install</defaultGoal>
-    <directory>${basedir}/target</directory>
+    <directory>target/</directory>
+	  <scriptSourceDirectory>script/</scriptSourceDirectory>
     <finalName>spring4basic</finalName><!-- 차후 프로젝트 이름을 변경하면 여기를 수정해주어야함. -->
     
   	<plugins>
