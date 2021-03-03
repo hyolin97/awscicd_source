@@ -1,9 +1,2 @@
-1. DB 연결을 JNDI 멀티 DB connection 처리
-  - 1.1 변경된 파일
-        - 1.1.1 server.xml, context-datasource.xml, globals.xml
-                
-  - 1.2 server.xml 파일 변경 내용
-=======================>
-      	<Context docBase="spring4basic" path="/" reloadable="true" source="org.eclipse.jst.jee.server:spring4basic">
-      	</Context>
-<=======================
+aws codepipeline을 이용하여 spring 프로젝트 자동 빌드 후 배포 실행
+ 실행 결과: codepipeline 실행 끝날 경우 바로 애플리케이션 톰캣 자동 작동하여 서비스 시작
