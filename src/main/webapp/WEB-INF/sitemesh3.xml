@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemesh>
+	<mapping path="/**" decorator="/WEB-INF/sitemesh/layout.jsp"/>
+	<mapping path="/*.pop" decorator="/WEB-INF/sitemesh/layoutPop.jsp"/>
+
+	<!-- 예외 ==> -->
+	<mapping path="/login" exclue="true" />
+	<mapping path="/*.ajax" exclue="true" />
+	<!-- 예외 <== -->
+</sitemesh>

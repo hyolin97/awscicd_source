@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+	<!-- non-encryption ==> -->
+	<bean id="gx.propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:/properties/globals.xml</value>
+			</list>
+		</property>
+	</bean>
+	<!-- non-encryption <== -->
+	
+	<!-- Jasypt ==> -->
+	<!-- <bean id="environmentVariablesConfiguration" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+		<property name="algorithm" value="PBEWithMD5AndDES"/>
+		<property name="passwordEnvName" value="APP_ENCRYPTION_PASSWORD"/>
+	</bean>
+	<bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+		<property name="config" ref="environmentVariablesConfiguration"/>
+		<property name="password" value="mzc2020!"/>
+	</bean>
+	<bean id="gx.propertyConfigurer" class="org.jasypt.spring31.properties.EncryptablePropertyPlaceholderConfigurer">
+		<constructor-arg ref="configurationEncryptor"/>
+		<property name="locations">
+			<list>
+				<value>classpath:/properties/globals.xml</value>
+			</list>
+		</property>
+	</bean> -->
+	<!-- Jasypt <== -->
+	
+	<!-- DataSource -->
+	<alias name="dataSource-${Globals.DbType}" alias="dataSource" />
+    
+	<!-- MySQL -->
+	<bean id="dataSource-mysql" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${Globals.DriverClassName}"/>
+		<property name="url" value="${Globals.Url}" />
+		<property name="username" value="${Globals.UserName}"/>
+		<property name="password" value="${Globals.Password}"/>
+		<property name="validationQuery" value="SELECT 1"/>
+		<!-- <property name="maxTotal" 		 value="50" />
+		<property name="maxIdle" 		 value="10" />
+		<property name="maxWaitMillis" 		 value="5000"/>
+		<property name="removeAbandonedOnBorrow" value="true"/>
+		<property name="removeAbandonedTimeout" value="10"/>
+		<property name="logAbandoned" value="true"/>
+		<property name="testOnBorrow" value="false"/>
+		<property name="testOnReturn" value="false"/>
+		<property name="testWhileIdle" value="true"/>
+		<property name="timeBetweenEvictionRunsMillis" value="2000"/> -->
+		<!-- maxTotal : DB 연결풀의 최대개수, 0 은 무제한, mysql의 max_connections 보다 작아야함. 기본값 8 -->
+		<!-- maxIdle : 연결풀에서 보관할 최대 유휴(idle) DB연결개수, 0은 무제한, 기본값 8, 항상 maxActive(maxTotal) 보다는 같거나 작아야 하지만 같은것이 좋다. -->
+		<!-- maxWaitMillis : DB 연결이 반환되는 Timeout 시간이며, 이를 초과하면 예외가 발생한다. 1/1000 초가 단위이며 -1은 무한 대기 
+				maxWait 속성은 커넥션 풀안에서 커넥션이 고갈되었을 때 커넥션 반납을 대기하는 시간(밀리초)이며 기본값은 무한정대기이다.-->
+		<!-- removeAbandonedOnBorrow : DB연결이 적은경우 DBCP가 버려진 연결을 찾아 재활용, default는 false -->
+		<!-- removeAbandonedTimeout : DBCP가 버려진 연결로 인식할때까지 시간을 초단위로 지정 default 5분(300초) -->
+		<!-- logAbandoned : DB연결을 유발하는 코드를 잦을수 있는 stack trace를 작성 -->
+		<!-- testOnBorrow : 커넥션 풀에서 커넥션을 얻어올때 테스트 실행, default true -->
+		<!-- testOnReturn : 커넥션 풀로 커넥션을 반납할때 테스트 실행, default false -->
+		<!-- testWhileIdle : Evictor 스레드가 실행될때 (timeBetweenEvictionRunMillis > 0) 커넥션 풀 안에 있는 유휴 상태의
+				커넥션을 대상으로 테스트 실행, default false -->
+		<!-- 검증에 지나치게 많은 자원을 소모하지 않는 방안은 testOnBorrow 옵션과 testOnReturn 은 false로
+				오랫동안 대기상태 였던 커넥션이 끊어지는 현상을 막게 testWhileIdle true 설정 -->
+		<!-- Evictor 스레드 와 관련된 속성 : DBCP 내부에서 커넥션 자원을 정리하는 구성 요소
+				timeBetweenEvictionRunsMillis : Evictor 스레드가 동작하는 간격, default -1, 비활성화
+				numTestsPerEvictionRun : Evictor 스레드 동작시 한번에 검사할 커넥션 개수
+				minEvictableIdleTimeMillis : Evictor 스레드 동작시 커넥션 유휴시간을 확인해 설정값이 이상일 경우 커넥션을 제거, 기본값 30분 -->
+	</bean>
+	
+	<!-- PostgreSQL -->
+	<bean id="dataSource-PostgreSQL" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${Globals.DriverClassName}"/>
+		<property name="url" value="${Globals.Url}" />
+		<property name="username" value="${Globals.UserName}"/>
+		<property name="password" value="${Globals.Password}"/>
+		<property name="validationQuery" value="SELECT 1"/>
+	</bean>
+
+</beans>

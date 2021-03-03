@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+	<!-- non-encryption ==> -->
+	<bean id="gx.propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:/properties/globals.xml</value>
+			</list>
+		</property>
+	</bean>
+	<!-- non-encryption <== -->
+	
+	<!-- DataSource -->
+	<!-- <alias name="dataSource-${Globals.DbType}" alias="dataSource" /> -->
+	
+	<!-- PostgreSQL -->
+	<!-- <bean id="dataSource-PostgreSQL" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${Globals.DriverClassName}"/>
+		<property name="url" value="${Globals.Url}" />
+		<property name="username" value="${Globals.UserName}"/>
+		<property name="password" value="${Globals.Password}"/>
+		<property name="validationQuery" value="SELECT 1"/>
+	</bean> -->
+	
+	<!-- DataSource -->
+	<alias name="dataSource-postgre01" alias="dataSource" />
+	<alias name="dataSource-postgre02" alias="dataSource02" />
+	
+	<!--  Connection Pool Data Source -->
+	<bean id="dataSource-postgre01" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/jdbc/postgre01" />
+	</bean>
+	
+	<bean id="dataSource-postgre02" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/jdbc/postgre02" />
+	</bean>
+
+	<!--  Spring Jdbc Tempalte  -->
+	<!-- <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource">
+			<ref bean="dataSource-postgre01" />
+		</property>
+	</bean> -->
+
+</beans>

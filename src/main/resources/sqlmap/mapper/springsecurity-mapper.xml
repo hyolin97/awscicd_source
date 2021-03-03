@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SpringSecurity">
+
+
+<resultMap id="userMapResult" type="kr.co.mz.comm.security.model.UserVO">
+	<result property="id" column="id"/>
+	<result property="username" column="username"/>
+	<result property="password" column="password"/>
+	<result property="first_name" column="first_name"/>
+	<result property="last_name" column="last_name"/>
+	<result property="email" column="email"/>
+	<result property="accountstate" column="accountstate"/>
+	<collection property="userProfiles" column="id=id" javaType="java.util.Set" ofType="kr.co.mz.comm.security.model.UserProfileVO" select="selectAPPUserUserProfile"/>
+</resultMap>
+<select id="findByusername" resultMap="userMapResult" resultType="kr.co.mz.comm.security.model.UserVO" parameterType="java.lang.String">
+/* SpringSecurity-mapper.xml : findByusername 조회 */
+SELECT
+	id
+	,username
+	,password
+	,first_name
+	,last_name
+	,email
+	,accountstate
+	,reg_date
+	,upp_date
+FROM mecury1db1.sc_member
+WHERE username = #{username}
+</select>
+
+<select id="selectAPPUserUserProfile" resultType="kr.co.mz.comm.security.model.UserProfileVO" parameterType="kr.co.mz.comm.security.model.UserProfileVO">
+/* SpringSecurity-mapper.xml selectAPPUserUserProfile 조회  */
+SELECT
+	AU.user_profile_id AS id
+	, UP.roletype AS roletype
+FROM mecury1db1.sc_member_user_profile AU
+	, mecury1db1.sc_user_profile UP
+WHERE
+	AU.user_profile_id = UP.id
+	AND AU.user_id = #{id}
+</select>
+
+</mapper>
