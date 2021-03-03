@@ -1,4 +1,4 @@
-version: 0.0
+version: 0.2
 
 
 phases:
@@ -21,8 +21,9 @@ artifacts:
   files:
     - target/*
     - appspec.yml
-    - scripts/*
-    discard-paths:yes
+    - script/*
+
+
 
 
 
