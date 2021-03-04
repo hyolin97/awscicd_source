@@ -1,0 +1,6 @@
+1. AWS Lamda에서 CloudWatch Event를 트리거하여 slack으로 보내주는 방식(codepipeline 트리거)
+
+	- lamda 함수 생성시 node.js를 사용하였음.
+	- 참고 코드 index.js   
+
+2. AWS Lamda에서 AWS SNS를 연동하여 slack으로 보내주는 방식(codedeploy 트리거)
