@@ -1,0 +1,14 @@
+{
+  "Records": [
+    {
+      "EventSource": "aws:sns",
+      "EventVersion": "1.0",
+      "EventSubscriptionArn": "arn:aws:lambda:ap-northeast-2:221859632123:function:deploy-alarm",
+      "Sns": {
+        "Type": "Notification",
+        "Subject": "SUCCEEDED: AWS CodeDeploy",
+        "Message": "{\"region\":\"ap-northeast-2\",\"eventTriggerName\":\"sns-trigger\",\"applicationName\":\"deploy4jenkins\",\"deploymentId\":\"d-00000\",\"deploymentGroupName\":\"deploygroup\",\"createTime\":\"Tue Nov 03 06:38:25 UTC 2020\",\"completeTime\":\"Tue Nov 03 06:38:35 UTC 2020\",\"deploymentOverview\":\"{\\\"Succeeded\\\":1,\\\"Failed\\\":0,\\\"Skipped\\\":0,\\\"InProgress\\\":0,\\\"Pending\\\":0}\",\"status\":\"SUCCEEDED\"}"
+      }
+    }
+  ]
+}
